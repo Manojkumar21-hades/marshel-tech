@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Page not found | Marshall Tech', 'That page is not on the Marshall Tech site.', '/')}">
+    <title>Page not found</title>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header th:replace="~{fragments/layout :: header('home')}"></header>
+<main id="content">
+    <section class="page-hero">
+        <div class="wrap">
+            <p class="kicker">Missing page</p>
+            <h1>That address is not on this site.</h1>
+            <p class="lede">The pages are Home, About, Projects &amp; Solutions, Gallery, and Contact.</p>
+            <p class="hero-actions">
+                <a class="btn" th:href="@{/}">Back to the home page</a>
+                <a class="btn btn-ghost" th:href="@{/contact}">Contact the studio</a>
+            </p>
+        </div>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

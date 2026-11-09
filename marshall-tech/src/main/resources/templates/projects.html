@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Projects & Solutions | Marshall Tech', 'Home automation solutions from Marshall Tech: lighting, locks, cameras, shades, water, solar, backup power, and the electrical work underneath.', '/projects')}">
+    <title>Projects</title>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header th:replace="~{fragments/layout :: header('projects')}"></header>
+<main id="content">
+    <section class="page-hero">
+        <div class="wrap">
+            <p class="kicker">Projects &amp; solutions</p>
+            <h1>Systems for a house, and the patterns they make.</h1>
+            <p class="lede">Choose a system, or start from the kind of house. A whole-home plan is welcome. So is a single line: only the pump, only the lights, only the front door.</p>
+        </div>
+    </section>
+
+    <section class="section" id="solutions">
+        <div class="wrap solution-list">
+            <article class="solution" th:each="solution : ${site.solutions}" th:id="${solution.id}">
+                <div>
+                    <p class="kicker" th:text="${solution.kicker}">Kicker</p>
+                    <h2 th:text="${solution.name}">Name</h2>
+                    <p th:text="${solution.summary}">Summary</p>
+                </div>
+                <ul>
+                    <li th:each="item : ${solution.includes}" th:text="${item}">Included</li>
+                </ul>
+            </article>
+            <article class="solution" id="appliances">
+                <div>
+                    <p class="kicker">Kitchen, laundry, utility</p>
+                    <h2>Home appliances</h2>
+                    <p>Appliances chosen with the points that feed them. The fridge, the washing line, and the utility are part of the same drawing as the inverter and the lighting.</p>
+                </div>
+                <ul>
+                    <li>Points and protection sized for the appliance, not guessed later</li>
+                    <li>The utility room kept clear enough to service</li>
+                    <li>Backup decided per circuit, so a cut does not surprise the fridge</li>
+                    <li>Placement agreed before the counters are ordered</li>
+                </ul>
+            </article>
+        </div>
+    </section>
+
+    <section class="section section-tight">
+        <div class="wrap">
+            <div class="section-head">
+                <p class="kicker">Project patterns</p>
+                <h2>How those systems meet in a house.</h2>
+                <p class="lede">Patterns we design from. The photographs are concept studies. Bring a plan and the pattern is redrawn for that plan.</p>
+            </div>
+            <div class="pattern-detail">
+                <article th:each="pattern : ${site.patterns}">
+                    <figure>
+                        <img th:src="@{${pattern.image}}" th:alt="${pattern.imageAlt}">
+                        <figcaption>Concept study</figcaption>
+                    </figure>
+                    <div>
+                        <p class="kicker" th:text="${pattern.place}">Place</p>
+                        <h3 th:text="${pattern.title}">Title</h3>
+                        <p th:text="${pattern.summary}">Summary</p>
+                        <ul>
+                            <li th:each="point : ${pattern.points}" th:text="${point}">Point</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section th:replace="~{fragments/layout :: band}"></section>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

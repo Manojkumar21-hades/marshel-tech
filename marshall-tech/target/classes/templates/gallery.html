@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Gallery | Marshall Tech', 'Concept studies of lighting, security, solar, water, and control for Marshall Tech homes in Coimbatore and Coonoor.', '/gallery')}">
+    <title>Gallery</title>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header th:replace="~{fragments/layout :: header('gallery')}"></header>
+<main id="content">
+    <section class="page-hero">
+        <div class="wrap">
+            <p class="kicker">Gallery</p>
+            <h1>Concept studies.</h1>
+            <p class="lede">These frames show lighting, security, power, and water the way a finished Marshall Tech house should feel. They are design references, not photographs of a named client project. Real project photographs can replace them as jobs are handed over.</p>
+            <div class="filters" role="toolbar" aria-label="Filter the gallery">
+                <button type="button" class="filter is-active" data-filter="all">All</button>
+                <button type="button" class="filter" th:each="category : ${site.galleryCategories}" th:data-filter="${category}" th:text="${category}">Lighting</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-tight">
+        <div class="wrap">
+            <div class="gallery-grid">
+                <figure class="shot" th:each="item : ${site.gallery}" th:data-category="${item.category}">
+                    <button type="button" class="shot-open" th:attr="data-full=@{${item.image}},data-title=${item.title},data-caption=${item.caption}">
+                        <img th:src="@{${item.image}}" th:alt="${item.caption}">
+                    </button>
+                    <figcaption>
+                        <span th:text="${item.category}">Lighting</span>
+                        <strong th:text="${item.title}">Title</strong>
+                    </figcaption>
+                </figure>
+            </div>
+            <p class="empty-filter" hidden>Nothing in that group yet.</p>
+        </div>
+    </section>
+
+    <dialog id="lightbox" class="lightbox">
+        <button type="button" class="lightbox-close">Close</button>
+        <figure>
+            <img alt="" src="" id="lightbox-img">
+            <figcaption>
+                <h2></h2>
+                <p></p>
+            </figcaption>
+        </figure>
+    </dialog>
+
+    <section th:replace="~{fragments/layout :: band}"></section>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

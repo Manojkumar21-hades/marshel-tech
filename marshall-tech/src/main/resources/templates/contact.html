@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Contact | Marshall Tech', 'Call Marshall Tech in Coimbatore or Coonoor, or send a note about the house you want automated.', '/contact')}">
+    <title>Contact</title>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header th:replace="~{fragments/layout :: header('contact')}"></header>
+<main id="content">
+    <section class="page-hero">
+        <div class="wrap">
+            <p class="kicker">Contact</p>
+            <h1>Tell us about the house.</h1>
+            <p class="lede">Call either studio, or send a note. A floor plan is useful. A sentence about what should happen at the front door is enough to start.</p>
+        </div>
+    </section>
+
+    <section class="section section-tight">
+        <div class="wrap contact-grid">
+            <div class="contact-facts">
+                <article th:each="studio : ${site.company.studios}" class="studio-card">
+                    <h2 th:text="${studio.name}">Coimbatore</h2>
+                    <p th:text="${studio.lines}">Address</p>
+                    <a th:href="${studio.mapUrl}" target="_blank" rel="noopener">Open in Maps</a>
+                </article>
+                <article class="studio-card">
+                    <h2>Phone and email</h2>
+                    <p class="phone-stack">
+                        <a th:each="phone : ${site.company.phones}" th:href="'tel:' + ${phone.tel}" th:text="${phone.display}">94428 91189</a>
+                    </p>
+                    <p><a th:href="'mailto:' + ${site.company.email}" th:text="${site.company.email}">marshalltech13@gmail.com</a></p>
+                    <p><a th:href="${site.company.websiteUrl}" th:text="${site.company.websiteLabel}">marshallin.in</a></p>
+                    <p class="quiet">Call to fix a site visit. Hours are agreed on the phone.</p>
+                </article>
+            </div>
+
+            <form class="enquiry" th:action="@{/contact}" th:object="${form}" method="post" novalidate>
+                <div class="banner" th:if="${sent}" role="status">
+                    <strong>Thank you.</strong>
+                    <p>We have your note. Someone from the Coimbatore or Coonoor studio will call you.</p>
+                </div>
+                <p class="form-error" th:if="${#fields.hasAnyErrors()}">Please check the fields marked below.</p>
+                <div class="form-grid">
+                    <label class="field" th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'">
+                        <span>Name</span>
+                        <input type="text" th:field="*{name}" autocomplete="name" maxlength="80" required>
+                        <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name is required.</small>
+                    </label>
+                    <label class="field" th:classappend="${#fields.hasErrors('phone')} ? 'is-invalid'">
+                        <span>Mobile</span>
+                        <input type="tel" th:field="*{phone}" autocomplete="tel" inputmode="tel" placeholder="Your mobile number" maxlength="16" required>
+                        <small th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Enter a mobile number.</small>
+                    </label>
+                    <label class="field" th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'">
+                        <span>Email</span>
+                        <input type="email" th:field="*{email}" autocomplete="email" maxlength="120" required>
+                        <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Enter an email.</small>
+                    </label>
+                    <label class="field" th:classappend="${#fields.hasErrors('city')} ? 'is-invalid'">
+                        <span>City</span>
+                        <input type="text" th:field="*{city}" autocomplete="address-level2" maxlength="80" placeholder="Your city">
+                        <small th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Check the city.</small>
+                    </label>
+                    <label class="field field-span" th:classappend="${#fields.hasErrors('interest')} ? 'is-invalid'">
+                        <span>What should we talk about?</span>
+                        <select th:field="*{interest}" required>
+                            <option value="">Choose a starting point</option>
+                            <option th:each="interest : ${site.interests}" th:value="${interest}" th:text="${interest}">Lighting</option>
+                        </select>
+                        <small th:if="${#fields.hasErrors('interest')}" th:errors="*{interest}">Choose a topic.</small>
+                    </label>
+                    <label class="field field-span" th:classappend="${#fields.hasErrors('message')} ? 'is-invalid'">
+                        <span>About the house</span>
+                        <textarea th:field="*{message}" rows="6" maxlength="1200" required placeholder="Rooms, what should happen at the door, and whether water or backup power is part of it."></textarea>
+                        <small th:if="${#fields.hasErrors('message')}" th:errors="*{message}">Add a sentence.</small>
+                    </label>
+                </div>
+                <div class="hp" aria-hidden="true">
+                    <label>Fax number
+                        <input type="text" th:field="*{faxNumber}" tabindex="-1" autocomplete="off">
+                    </label>
+                </div>
+                <button class="btn" type="submit">Send the note</button>
+            </form>
+        </div>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

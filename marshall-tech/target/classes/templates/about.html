@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('About | Marshall Tech', 'Marshall Tech is a home automation studio in Coimbatore and Coonoor. LEDs, controllers, sensors, water, and power, with customization welcome.', '/about')}">
+    <title>About</title>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header th:replace="~{fragments/layout :: header('about')}"></header>
+<main id="content">
+    <section class="page-hero">
+        <div class="wrap page-hero-grid">
+            <div>
+                <p class="kicker">About the studio</p>
+                <h1>Inspiring innovation, one house at a time.</h1>
+                <p class="lede">Marshall Tech automates homes from two studios: Rathinapuri in Coimbatore, and Grace Hill in Coonoor. We welcome customization in that automation.</p>
+            </div>
+            <figure class="frame">
+                <img th:src="@{/images/panel.jpg}" alt="Concept study of a wall panel and a phone on a timber console.">
+                <figcaption>Concept study · a panel in the passage</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="wrap split">
+            <div>
+                <p class="kicker">The work</p>
+                <h2>More than a switch on a phone.</h2>
+                <p>The card says it plainly: LEDs, controllers, sensors, and much more. A finished job is the lighting, the locks, the cameras, the pump, the purifier, the inverter, and the wiring that holds them together.</p>
+                <p>A scene is only as good as the circuit under it. That is why electrical and plumbing sit on the same list as the automation products. Opening a wall once, for both, is the point.</p>
+            </div>
+            <div class="creed">
+                <article>
+                    <h3>Save water</h3>
+                    <p>Overhead tank and sump on one line. The pump stops when the tank is full. It does not run a dry sump. RO and UV sized for the people who live there.</p>
+                </article>
+                <article>
+                    <h3>Save energy</h3>
+                    <p>Backup on the circuits you named, not on everything by accident. Solar where the roof, the shade, and the bill agree. Rooms bright only when someone needs them bright.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-tight">
+        <div class="wrap">
+            <div class="section-head">
+                <p class="kicker">How a plan is made</p>
+                <h2>We start from the routine, then the hardware.</h2>
+            </div>
+            <ol class="steps">
+                <li th:each="step : ${site.steps}">
+                    <span th:text="${step.number}">01</span>
+                    <h3 th:text="${step.title}">Listen</h3>
+                    <p th:text="${step.summary}">Summary</p>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="wrap quality">
+            <div class="stamp stamp-inline" aria-hidden="true">
+                <span>ISO</span>
+                <strong>9001:2015</strong>
+                <em>Certified</em>
+            </div>
+            <div>
+                <p class="kicker">Quality</p>
+                <h2>ISO 9001:2015 certified.</h2>
+                <p>The certificate is about how a job is specified, installed, and handed over. It is not a substitute for walking the house. You still get a drawing, a demonstration of every scene, and labels in the utility room.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-tight">
+        <div class="wrap">
+            <div class="section-head">
+                <p class="kicker">Studios</p>
+                <h2>Coimbatore and the Nilgiris.</h2>
+                <p class="lede">Call either number. Say which house, and which studio is closer.</p>
+            </div>
+            <div class="studio-grid">
+                <article th:each="studio : ${site.company.studios}">
+                    <h3 th:text="${studio.name}">Coimbatore</h3>
+                    <p th:text="${studio.lines}">Address</p>
+                    <a th:href="${studio.mapUrl}" target="_blank" rel="noopener">Open in Maps</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section th:replace="~{fragments/layout :: band}"></section>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
